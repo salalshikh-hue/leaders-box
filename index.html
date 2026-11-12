@@ -262,6 +262,75 @@ html[dir=rtl] .drawer{transform:translateX(-105%)}
 .demo{position:fixed;bottom:16px;inset-inline-start:16px;font-size:12px;background:rgba(217,178,106,.15);color:var(--gold-2);border:1px solid rgba(217,178,106,.35);padding:6px 12px;border-radius:999px;z-index:20}
 footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);padding:0 0 26px;letter-spacing:.06em}
 
+
+/* ---------- Tabs / panels ---------- */
+.tabs{display:flex;gap:6px;padding:6px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin-bottom:22px;width:max-content;max-width:100%;overflow-x:auto;backdrop-filter:blur(8px)}
+.tab{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:12px;border:0;background:transparent;color:rgba(255,255,255,.7);cursor:pointer;font-size:14.5px;font-weight:500;white-space:nowrap;transition:.25s var(--ease)}
+.tab svg{width:16px;height:16px}
+.tab:hover{color:#fff;background:rgba(255,255,255,.06)}
+.tab.on{background:#fff;color:var(--teal-dark);box-shadow:0 10px 24px -12px rgba(0,0,0,.5)}
+.tab .cnt{font-family:'JetBrains Mono';font-size:11px;padding:2px 7px;border-radius:999px;background:rgba(0,164,166,.15);color:var(--teal-2)}
+.tab.on .cnt{background:#E6F4F4;color:var(--teal-dark)}
+.tab.admin{color:var(--gold-2)}
+.tab.admin.on{color:#7A5A1E}
+.workspace.wide{max-width:1240px}
+main:has(#vForm:not(.hidden)){align-items:start}
+.tbl .tp{white-space:nowrap}
+.panel{animation:enter .5s var(--ease) both}
+
+/* approved cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.acard{background:#fff;color:var(--ink);border-radius:20px;padding:22px 22px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.acard::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--teal),var(--teal-2))}
+.acard.imp::before{background:linear-gradient(90deg,#1F9D72,#7ED9B0)}
+.acard .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.acard h4{font-size:15.5px;font-weight:600;line-height:1.75;white-space:pre-wrap}
+.acard .lbl{font-size:12px;color:var(--muted);margin-bottom:2px}
+.acard .imp-t{font-size:14px;line-height:1.7;color:#2E4445;white-space:pre-wrap}
+.acard .by{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.av-s{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:700;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;flex:none}
+.by b{color:var(--ink);font-weight:600}
+.empty-d{color:rgba(255,255,255,.65);text-align:center;padding:70px 20px;border:1px dashed rgba(255,255,255,.18);border-radius:20px;font-size:15px}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.panel-head h2{font-family:'Readex Pro','IBM Plex Sans Arabic';font-size:22px;font-weight:600}
+.panel-head p{font-size:14px;color:rgba(255,255,255,.62);margin-top:4px}
+
+/* admin */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px 18px;backdrop-filter:blur(10px)}
+.kpi small{display:block;font-size:12.5px;color:rgba(255,255,255,.6);margin-bottom:6px}
+.kpi b{font-family:'Readex Pro';font-size:28px;font-weight:600}
+.kpi.k1 b{color:#fff}.kpi.k2 b{color:#FF9C94}.kpi.k3 b{color:var(--teal-2)}.kpi.k4 b{color:#9DBBF5}.kpi.k5 b{color:#F5D27A}.kpi.k6 b{color:#7ED9B0}
+.board{background:#fff;color:var(--ink);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.board-top{display:grid;grid-template-columns:1fr 300px;border-bottom:1px solid var(--line)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;padding:18px 20px;align-items:center}
+.filters input,.filters select{height:42px;border-radius:12px;border:1.5px solid var(--line);background:#FBFDFD;padding:0 12px;font-size:14px;color:var(--ink);outline:none}
+.filters input{flex:1;min-width:200px}
+.filters input:focus,.filters select:focus{border-color:var(--teal)}
+.mini-btn{height:42px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--teal-dark);text-decoration:none}
+.mini-btn:hover{border-color:var(--teal)}
+.mini-btn svg{width:15px;height:15px}
+.teams{padding:16px 20px;border-inline-start:1px solid var(--line);background:var(--mist)}
+.teams h5{font-size:12.5px;color:var(--muted);font-weight:500;margin-bottom:10px}
+.trow{display:grid;grid-template-columns:96px 1fr 26px;gap:8px;align-items:center;font-size:12.5px;margin-bottom:7px}
+.trow .bar{height:8px;border-radius:8px;background:#E2ECEC;overflow:hidden}
+.trow .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-2));border-radius:8px}
+.trow b{font-family:'JetBrains Mono';font-weight:500;text-align:end}
+.tbl-wrap{overflow:auto;max-height:70vh}
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1050px}
+.tbl th{position:sticky;top:0;background:#04575A;color:#fff;font-weight:500;text-align:start;padding:12px 14px;font-size:12.5px;white-space:nowrap;z-index:1}
+.tbl td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+.tbl tr:nth-child(even) td{background:#F8FBFB}
+.tbl tr:hover td{background:#EEF7F7}
+.tbl .mono{font-family:'JetBrains Mono';font-size:12px;color:var(--teal-dark);white-space:nowrap}
+.tbl .clip{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;white-space:pre-wrap;max-width:360px}
+.tbl .clip.open{-webkit-line-clamp:unset}
+.tbl .who-c b{display:block;font-weight:600}
+.tbl .who-c small{color:var(--muted);font-size:12px}
+.tbl .note{color:var(--muted);font-size:12.5px;max-width:200px}
+.foot-note{padding:12px 20px;font-size:12.5px;color:var(--muted);background:var(--mist);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.board-top{grid-template-columns:1fr}.teams{border-inline-start:0;border-top:1px solid var(--line)}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .login{grid-template-columns:1fr}
@@ -350,6 +419,12 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);padding:0 0 
       </div>
     </div>
 
+    <nav class="tabs" id="tabs">
+      <button class="tab on" type="button" data-p="pNew"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i="tabNew">مساهمة جديدة</span></button>
+      <button class="tab" type="button" data-p="pApproved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg><span data-i="tabApproved">المساهمات المعتمدة</span><span class="cnt" id="cApproved">·</span></button>
+      <button class="tab admin hidden" type="button" data-p="pAdmin" id="tabAdmin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg><span data-i="tabAdmin">لوحة المشرف</span></button>
+    </nav>
+    <div class="panel" id="pNew">
     <form class="sheet" id="fBox" novalidate>
       <div class="sheet-head">
         <div><h2 data-i="newEntry">مساهمة جديدة</h2><p data-i="newEntrySub">الحقول المعلّمة بـ «إلزامي» مطلوبة للتقديم.</p></div>
@@ -399,6 +474,42 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);padding:0 0 
         <button class="btn" type="submit" id="bSubmit"><span class="lbl" data-i="submit">تقديم</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="spin"></span></button>
       </div>
     </form>
+    </div>
+
+    <div class="panel hidden" id="pApproved">
+      <div class="panel-head"><div><h2 data-i="apTitle">المساهمات المعتمدة</h2><p data-i="apSub">أفكار وحلول اعتمدتها إدارة القسم، متاحة لكل القادة.</p></div></div>
+      <div class="grid" id="apGrid"></div>
+    </div>
+
+    <div class="panel hidden" id="pAdmin">
+      <div class="panel-head"><div><h2 data-i="adTitle">لوحة المشرف</h2><p data-i="adSub">كل المساهمات المسجّلة في الشيت، تحدّث مباشرة.</p></div></div>
+      <div class="kpis">
+        <div class="kpi k1"><small data-i="kTotal">الإجمالي</small><b id="kTotal">0</b></div>
+        <div class="kpi k2"><small data-i="kProb">مشاكل</small><b id="kProb">0</b></div>
+        <div class="kpi k3"><small data-i="kImp">اقتراحات تحسين</small><b id="kImp">0</b></div>
+        <div class="kpi k4"><small data-i="kNew">جديد</small><b id="kNew">0</b></div>
+        <div class="kpi k5"><small data-i="kRev">قيد الدراسة</small><b id="kRev">0</b></div>
+        <div class="kpi k6"><small data-i="kApp">معتمد / منفّذ</small><b id="kApp">0</b></div>
+      </div>
+      <div class="board">
+        <div class="board-top">
+          <div class="filters">
+            <input id="fQ" type="search" data-ph="fSearch">
+            <select id="fTeam"></select>
+            <select id="fType"></select>
+            <select id="fStatus"></select>
+            <button class="mini-btn" type="button" id="bRefresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg><span data-i="refresh">تحديث</span></button>
+            <a class="mini-btn" target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1ycwveIzRCp-gZb3MV5-qsLPTIS-0ItwfV4o6TOSWdSY/edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7M21 3l-9 9M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg><span data-i="openSheet">فتح الشيت</span></a>
+          </div>
+          <div class="teams"><h5 data-i="byTeam">حسب الفريق</h5><div id="teamBars"></div></div>
+        </div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr>
+          <th data-i="thId">المرجع</th><th data-i="thDate">التاريخ</th><th data-i="thLeader">القائد</th><th data-i="thType">النوع</th>
+          <th data-i="thSol">الحل المقترح</th><th data-i="thImp">الأثر المتوقع</th><th data-i="thStatus">الحالة</th><th data-i="thNotes">ملاحظات</th><th data-i="thPts">النقاط</th>
+        </tr></thead><tbody id="tBody"></tbody></table></div>
+        <div class="foot-note"><span id="fCount"></span><span data-i="adHint">لتغيير الحالة أو إضافة ملاحظات ونقاط، عدّلها في الشيت وستظهر هنا بعد التحديث.</span></div>
+      </div>
+    </div>
   </section>
 
   <!-- ========== THANK YOU ========== -->
@@ -436,7 +547,7 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);padding:0 0 
 const DEMO = !/^https:\/\/script\.google\.com\//.test(API_URL);
 const $ = s => document.querySelector(s);
 const T = {
- ar:{brandTag:'صندوق القادة',mine:'مساهماتي',logout:'خروج',kicker:'مساحة خاصة لقادة قسم CS',
+ ar:{tabNew:'مساهمة جديدة',tabApproved:'المساهمات المعتمدة',tabAdmin:'لوحة المشرف',apTitle:'المساهمات المعتمدة',apSub:'أفكار وحلول اعتمدتها إدارة القسم، متاحة لكل القادة.',apEmpty:'لا توجد مساهمات معتمدة حتى الآن.',adTitle:'لوحة المشرف',adSub:'كل المساهمات المسجّلة في الشيت، تحدّث مباشرة.',kTotal:'الإجمالي',kProb:'مشاكل',kImp:'اقتراحات تحسين',kNew:'جديد',kRev:'قيد الدراسة',kApp:'معتمد / منفّذ',fSearch:'ابحث في الحلول أو الأسماء…',allTeams:'كل الفرق',allTypes:'كل الأنواع',allStatus:'كل الحالات',refresh:'تحديث',openSheet:'فتح الشيت',byTeam:'حسب الفريق',thId:'المرجع',thDate:'التاريخ',thLeader:'القائد',thType:'النوع',thSol:'الحل المقترح',thImp:'الأثر المتوقع',thStatus:'الحالة',thNotes:'ملاحظات',thPts:'النقاط',adHint:'لتغيير الحالة أو إضافة ملاحظات ونقاط، عدّلها في الشيت وستظهر هنا بعد التحديث.',shown:(a,b)=>`يعرض ${a} من ${b}`,noRows:'لا توجد نتائج',impLbl:'الأثر المتوقع',brandTag:'صندوق القادة',mine:'مساهماتي',logout:'خروج',kicker:'مساحة خاصة لقادة قسم CS',
   heroTitle:'صوتك يصنع<br><em>الخطوة القادمة</em>',
   heroText:'شارك التحديات التي تواجه فريقك وأفكار التحسين التي تؤمن بها. كل مساهمة تُراجَع وتُناقَش في الاجتماع الأسبوعي للقادة.',
   p1:'دخول بالبريد',p2:'أقل من دقيقتين',p3:'أثر قابل للقياس',signIn:'تسجيل الدخول',
@@ -452,10 +563,10 @@ const T = {
   rId:'رقم المرجع',rDate:'التاريخ',rDay:'اليوم',rTime:'الوقت',again:'مساهمة جديدة',seeMine:'عرض مساهماتي',mineTitle:'مساهماتي',
   empty:'لا توجد مساهمات بعد — ابدأ بأول فكرة.',loading:'جارٍ التحميل…',
   errors:{invalid_email:'البريد غير صحيح',not_allowed:'هذا البريد غير مسجّل في قائمة القادة',too_soon:'انتظر قليلًا قبل طلب رمز جديد',
-   invalid_code:'الرمز غير صحيح',code_expired:'انتهت صلاحية الرمز، اطلب رمزًا جديدًا',session_expired:'انتهت الجلسة، سجّل الدخول من جديد',
+   invalid_code:'الرمز غير صحيح',code_expired:'انتهت صلاحية الرمز، اطلب رمزًا جديدًا',session_expired:'انتهت الجلسة، سجّل الدخول من جديد',forbidden:'هذه الصفحة للمشرفين فقط',
    type_required:'اختر النوع',solution_required:'اكتب الحل المقترح',network:'تعذّر الاتصال، حاول مرة أخرى',server_error:'حدث خطأ، حاول مرة أخرى'},
   demo:'وضع المعاينة'},
- en:{brandTag:'Rewaa',mine:'My submissions',logout:'Sign out',kicker:'A private space for CS department leaders',
+ en:{tabNew:'New submission',tabApproved:'Approved',tabAdmin:'Admin dashboard',apTitle:'Approved submissions',apSub:'Ideas and solutions approved by department leadership, visible to all leaders.',apEmpty:'No approved submissions yet.',adTitle:'Admin dashboard',adSub:'Every submission in the sheet, live.',kTotal:'Total',kProb:'Problems',kImp:'Improvements',kNew:'New',kRev:'Under review',kApp:'Approved / done',fSearch:'Search solutions or names…',allTeams:'All teams',allTypes:'All types',allStatus:'All statuses',refresh:'Refresh',openSheet:'Open sheet',byTeam:'By team',thId:'Ref',thDate:'Date',thLeader:'Leader',thType:'Type',thSol:'Proposed solution',thImp:'Expected impact',thStatus:'Status',thNotes:'Notes',thPts:'Points',adHint:'To change status or add notes and points, edit the sheet; changes show here after refresh.',shown:(a,b)=>`Showing ${a} of ${b}`,noRows:'No results',impLbl:'Expected impact',brandTag:'Rewaa',mine:'My submissions',logout:'Sign out',kicker:'A private space for CS department leaders',
   heroTitle:'Your voice shapes<br><em>what comes next</em>',
   heroText:'Share the challenges your team faces and the improvements you believe in. Every submission is reviewed and discussed in the weekly leaders meeting.',
   p1:'Email sign-in',p2:'Under two minutes',p3:'Measurable impact',signIn:'Sign in',
@@ -471,7 +582,7 @@ const T = {
   rId:'Reference',rDate:'Date',rDay:'Day',rTime:'Time',again:'New submission',seeMine:'View my submissions',mineTitle:'My submissions',
   empty:'No submissions yet — start with your first idea.',loading:'Loading…',
   errors:{invalid_email:'Please enter a valid email',not_allowed:'This email is not on the leaders list',too_soon:'Please wait a moment before requesting a new code',
-   invalid_code:'Incorrect code',code_expired:'Code expired — request a new one',session_expired:'Session expired — please sign in again',
+   invalid_code:'Incorrect code',code_expired:'Code expired — request a new one',session_expired:'Session expired — please sign in again',forbidden:'Admins only',
    type_required:'Choose a type',solution_required:'Describe the proposed solution',network:'Connection failed, please try again',server_error:'Something went wrong, please try again'},
   demo:'Preview mode'}
 };
@@ -491,6 +602,8 @@ function applyLang(){
   if(last) fillReceipt(last);
   tick();
   if($('#drawer').classList.contains('open')) loadMine();
+  if(typeof renderApproved==='function'&&APPROVED) renderApproved();
+  if(typeof renderAdmin==='function'&&ALL.length){buildFilters();renderAdmin()}
   if(DEMO) $('#demo') && ($('#demo').textContent=t('demo'));
 }
 $('#btnLang').onclick=()=>{lang=lang==='ar'?'en':'ar';try{localStorage.setItem('lb_lang',lang)}catch(e){};applyLang()};
@@ -504,10 +617,16 @@ async function api(action,data={}){
   }catch(e){return {ok:false,error:'network'}}
 }
 const demoStore=[];
+const DEMO_ROWS=[
+ {id:'LB-0003',date:'2026-11-10',time:'10:12 AM',name:'Abdulaziz Alsaif',team:'Support',type:'Improvement Idea | اقتراح تحسين',solution:'توحيد قوالب الردود على التذاكر المتكررة وربطها بقاعدة المعرفة',impact:'تقليل وقت الحل 20%',status:'Approved | معتمد',notes:'يبدأ التطبيق الأسبوع القادم',points:'10'},
+ {id:'LB-0002',date:'2026-11-09',time:'01:40 PM',name:'Saleh Alsaleem',team:'CSM',type:'Problem | مشكلة',solution:'تأخر تفعيل العملاء الجدد بسبب انتظار جدولة التدريب، نقترح حجز ذاتي مباشر',impact:'',status:'Implemented | تم التنفيذ',notes:'',points:'15'},
+ {id:'LB-0001',date:'2026-11-08',time:'09:05 AM',name:'F. Suliman',team:'Hardware',type:'Problem | مشكلة',solution:'نقص قطع الغيار في المخزون الاحتياطي',impact:'تقليل وقت الاستبدال',status:'Under Review | قيد الدراسة',notes:'',points:''}];
 const DEMO_LEADERS={'s.alalshikh@rewaa.com':['Salman Alalshikh','QA & Training'],'a.alsaif@rewaa.com':['Abdulaziz Alsaif','Support']};
 async function demoApi(a,d){
   await new Promise(r=>setTimeout(r,700));
-  if(a==='login'){const l=DEMO_LEADERS[d.email];return l?{ok:true,token:'demo',name:l[0],team:l[1],email:d.email}:{ok:false,error:'not_allowed'}}
+  if(a==='login'){const l=DEMO_LEADERS[d.email];return l?{ok:true,token:'demo',name:l[0],team:l[1],email:d.email,admin:d.email==='s.alalshikh@rewaa.com'}:{ok:false,error:'not_allowed'}}
+  if(a==='approved') return {ok:true,items:DEMO_ROWS.filter(r=>/Approved|Implemented/.test(r.status))};
+  if(a==='all') return {ok:true,items:demoStore.map(x=>({...x,name:'Salman Alalshikh',team:'QA & Training'})).concat(DEMO_ROWS)};
   if(a==='submit'){const n=new Date(),id='LB-'+String(demoStore.length+1).padStart(4,'0');
     const o={ok:true,id,date:n.toISOString().slice(0,10),day_en:DAYS.en[n.getDay()],day_ar:DAYS.ar[n.getDay()],time:n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})};
     demoStore.unshift({id,date:o.date,time:o.time,type:d.type==='problem'?'Problem | مشكلة':'Improvement Idea | اقتراح تحسين',solution:d.solution,status:'New | جديد'});return o}
@@ -521,7 +640,7 @@ function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('show')
 /* ---------- Views ---------- */
 function show(id){['vLogin','vForm','vThanks'].forEach(v=>$('#'+v).classList.toggle('hidden',v!==id));
   const inn=!!S; ['btnMine','btnOut'].forEach(b=>$('#'+b).classList.toggle('hidden',!inn)); window.scrollTo({top:0,behavior:'smooth'})}
-function enterApp(){ $('#uName').textContent=S.name; $('#uTeam').textContent=S.team||'—'; $('#uEmail').textContent=S.email; show('vForm'); progress() }
+function enterApp(){ $('#tabAdmin').classList.toggle('hidden',!S.admin); refreshApprovedCount(); $('#uName').textContent=S.name; $('#uTeam').textContent=S.team||'—'; $('#uEmail').textContent=S.email; show('vForm'); progress() }
 
 /* ---------- Login ---------- */
 $('#fEmail').onsubmit=async e=>{e.preventDefault();
@@ -532,10 +651,10 @@ $('#fEmail').onsubmit=async e=>{e.preventDefault();
   $('#wName').textContent=r.name;$('#wTeam').textContent=r.team||'—';
   $('#wAv').textContent=r.name.split(/[\s.]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
   $('#who').classList.remove('hidden');
-  S={token:r.token,name:r.name,team:r.team,email:r.email,exp:Date.now()+29*864e5};try{localStorage.setItem('lb_s',JSON.stringify(S));localStorage.setItem('lb_e',email)}catch(e){}
+  S={token:r.token,name:r.name,team:r.team,email:r.email,admin:!!r.admin,exp:Date.now()+29*864e5};try{localStorage.setItem('lb_s',JSON.stringify(S));localStorage.setItem('lb_e',email)}catch(e){}
   setTimeout(()=>{busy(b,false);$('#who').classList.add('hidden');enterApp()},1100);
 };
-$('#btnOut').onclick=()=>{S=null;try{localStorage.removeItem('lb_s')}catch(e){};closeDrawer();show('vLogin')};
+$('#btnOut').onclick=()=>{S=null;ALL=[];APPROVED=null;openPanel('pNew');try{localStorage.removeItem('lb_s')}catch(e){};closeDrawer();show('vLogin')};
 
 /* ---------- Form ---------- */
 const sol=$('#solution'),imp=$('#impact');
@@ -561,7 +680,7 @@ $('#fBox').onsubmit=async e=>{e.preventDefault();
   $('#fBox').reset();progress();
 };
 function fillReceipt(r){$('#rId').textContent=r.id;$('#rDate').textContent=r.date;$('#rDay').textContent=lang==='ar'?r.day_ar:r.day_en;$('#rTime').textContent=r.time}
-$('#bAgain').onclick=()=>{show('vForm');progress()};
+$('#bAgain').onclick=()=>{show('vForm');openPanel('pNew');progress()};
 $('#bSeeMine').onclick=()=>openDrawer();
 
 function confetti(){const c=$('#confetti'),cols=['#00A4A6','#2BC4C3','#D9B26A','#F1D9A6','#653165','#fff'];c.innerHTML='';
@@ -585,9 +704,57 @@ async function loadMine(){const L=$('#list');L.innerHTML=`<div class="empty">${t
     <div class="row"><span class="tp ${/Problem/.test(it.type)?'p':'i'}">${esc(half(it.type,idx))}</span><span class="when">${esc(it.date)} · ${esc(it.time)}</span></div>
     <p>${esc(it.solution)}</p></div>`}).join('')}
 
+
+/* ---------- Tabs, approved, admin ---------- */
+let curPanel='pNew', ALL=[], APPROVED=null;
+function openPanel(p){curPanel=p;document.querySelectorAll('#tabs .tab').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  ['pNew','pApproved','pAdmin'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==p));
+  $('#vForm').classList.toggle('wide',p!=='pNew');
+  if(p==='pApproved')loadApproved(); if(p==='pAdmin')loadAll();}
+document.querySelectorAll('#tabs .tab').forEach(b=>b.onclick=()=>openPanel(b.dataset.p));
+const ini=n=>String(n||'').split(/[\s.]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+const stCls=st=>/Implemented/.test(st)?'imp':/Approved/.test(st)?'app':/Review/.test(st)?'rev':/Rejected/.test(st)?'rej':'new';
+async function refreshApprovedCount(){const r=await api('approved',{token:S&&S.token});if(r.ok){APPROVED=r.items;$('#cApproved').textContent=r.items.length;if(curPanel==='pApproved')renderApproved()}}
+async function loadApproved(){if(!APPROVED)$('#apGrid').innerHTML=`<div class="empty-d">${t('loading')}</div>`;await refreshApprovedCount()}
+function renderApproved(){const idx=lang==='ar'?1:0,G=$('#apGrid');
+  if(!APPROVED||!APPROVED.length){G.innerHTML=`<div class="empty-d" style="grid-column:1/-1">${t('apEmpty')}</div>`;return}
+  G.innerHTML=APPROVED.map(it=>`<article class="acard ${/Implemented/.test(it.status)?'imp':''}">
+    <div class="top"><span class="tp ${/Problem/.test(it.type)?'p':'i'}">${esc(half(it.type,idx))}</span><span class="st ${stCls(it.status)}">${esc(half(it.status,idx))}</span></div>
+    <h4>${esc(it.solution)}</h4>
+    ${it.impact?`<div><div class="lbl">${t('impLbl')}</div><div class="imp-t">${esc(it.impact)}</div></div>`:''}
+    <div class="by"><span class="av-s">${esc(ini(it.name))}</span><div><b>${esc(it.name)}</b> · ${esc(it.team)}</div><span style="margin-inline-start:auto" class="mono">${esc(it.date)}</span></div>
+  </article>`).join('')}
+async function loadAll(){$('#tBody').innerHTML=`<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">${t('loading')}</td></tr>`;
+  const r=await api('all',{token:S&&S.token});
+  if(!r.ok){$('#tBody').innerHTML=`<tr><td colspan="9" style="text-align:center;padding:40px">${errText(r.error)}</td></tr>`;return}
+  ALL=r.items;buildFilters();renderAdmin()}
+function opts(sel,first,vals){const cur=sel.value;sel.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option value="${esc(v.v)}">${esc(v.l)}</option>`).join('');sel.value=vals.some(v=>v.v===cur)?cur:''}
+function buildFilters(){const idx=lang==='ar'?1:0,uniq=a=>[...new Set(a.filter(Boolean))];
+  opts($('#fTeam'),t('allTeams'),uniq(ALL.map(x=>x.team)).map(v=>({v,l:v})));
+  opts($('#fType'),t('allTypes'),uniq(ALL.map(x=>x.type)).map(v=>({v,l:half(v,idx)})));
+  opts($('#fStatus'),t('allStatus'),uniq(ALL.map(x=>x.status)).map(v=>({v,l:half(v,idx)})))}
+function renderAdmin(){const idx=lang==='ar'?1:0,q=$('#fQ').value.trim().toLowerCase(),fT=$('#fTeam').value,fY=$('#fType').value,fS=$('#fStatus').value;
+  const c=(f)=>ALL.filter(f).length;
+  $('#kTotal').textContent=ALL.length;$('#kProb').textContent=c(x=>/Problem/.test(x.type));$('#kImp').textContent=c(x=>/Improvement/.test(x.type));
+  $('#kNew').textContent=c(x=>/New/.test(x.status));$('#kRev').textContent=c(x=>/Review/.test(x.status));$('#kApp').textContent=c(x=>/Approved|Implemented/.test(x.status));
+  const teams={};ALL.forEach(x=>{teams[x.team||'—']=(teams[x.team||'—']||0)+1});const mx=Math.max(1,...Object.values(teams));
+  $('#teamBars').innerHTML=Object.entries(teams).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="trow"><span>${esc(k)}</span><span class="bar"><i style="width:${v/mx*100}%"></i></span><b>${v}</b></div>`).join('')||`<div class="trow"><span>—</span></div>`;
+  const rows=ALL.filter(x=>(!fT||x.team===fT)&&(!fY||x.type===fY)&&(!fS||x.status===fS)&&(!q||[x.solution,x.impact,x.name,x.id,x.notes].join(' ').toLowerCase().includes(q)));
+  $('#fCount').textContent=t('shown')(rows.length,ALL.length);
+  $('#tBody').innerHTML=rows.length?rows.map(x=>`<tr>
+    <td class="mono">${esc(x.id)}</td><td class="mono">${esc(x.date)}<br><small style="color:var(--muted)">${esc(x.time)}</small></td>
+    <td class="who-c"><b>${esc(x.name)}</b><small>${esc(x.team)}</small></td>
+    <td><span class="tp ${/Problem/.test(x.type)?'p':'i'}">${esc(half(x.type,idx))}</span></td>
+    <td><div class="clip">${esc(x.solution)}</div></td><td><div class="clip">${esc(x.impact)||'<span style="color:#9AAAAB">—</span>'}</div></td>
+    <td><span class="st ${stCls(x.status)}">${esc(half(x.status,idx))}</span></td><td class="note">${esc(x.notes)}</td><td class="mono">${esc(x.points)}</td></tr>`).join('')
+    :`<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">${t('noRows')}</td></tr>`;
+  document.querySelectorAll('.tbl .clip').forEach(el=>el.onclick=()=>el.classList.toggle('open'))}
+['fQ','fTeam','fType','fStatus'].forEach(id=>{$('#'+id).addEventListener('input',renderAdmin);$('#'+id).addEventListener('change',renderAdmin)});
+$('#bRefresh').onclick=loadAll;
+
 /* ---------- Boot ---------- */
 if(DEMO){const d=document.createElement('div');d.className='demo';d.id='demo';document.body.appendChild(d)}
-applyLang(); try{$('#email').value=localStorage.getItem('lb_e')||''}catch(e){} if(S) enterApp(); else show('vLogin');
+applyLang(); if(S&&S.admin===undefined){api('all',{token:S.token}).then(r=>{S.admin=!!r.ok;try{localStorage.setItem('lb_s',JSON.stringify(S))}catch(e){};$('#tabAdmin').classList.toggle('hidden',!S.admin)})} try{$('#email').value=localStorage.getItem('lb_e')||''}catch(e){} if(S) enterApp(); else show('vLogin');
 })();
 </script>
 </body>
