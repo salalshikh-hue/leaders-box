@@ -325,6 +325,32 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1050px}
 .tbl .mono{font-family:'JetBrains Mono';font-size:12px;color:var(--teal-dark);white-space:nowrap}
 .tbl .clip{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;white-space:pre-wrap;max-width:360px}
 .tbl .clip.open{-webkit-line-clamp:unset}
+.st-sel{height:30px;border-radius:999px;border:1.5px solid var(--line);background:#fff;padding:0 8px;font-size:12px;color:var(--ink);cursor:pointer;max-width:150px}
+.st-sel:focus{outline:none;border-color:var(--teal)}
+.st-sel.new{background:#E8F0FD;color:#3460B8;border-color:#C9D9F7}.st-sel.rev{background:#FFF4D6;color:#9A6B00;border-color:#F3DE9E}
+.st-sel.app{background:#E2F5EC;color:#137A4B;border-color:#B9E3CE}.st-sel.imp{background:#DDF3F3;color:#04575A;border-color:#AFDCDC}.st-sel.rej{background:#FDE8E7;color:#B3261E;border-color:#F4C2BF}
+.ed-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--teal-dark)}
+.ed-btn:hover{border-color:var(--teal);background:#EEF7F7}.ed-btn svg{width:15px;height:15px}
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(1,14,15,.6);backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.mbox{background:#fff;color:var(--ink);border-radius:22px;width:min(720px,100%);max-height:92vh;overflow:auto;box-shadow:var(--shadow)}
+.mhead{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1}
+.mhead h3{font-family:'Readex Pro';font-size:18px;font-weight:600}
+.mhead .mono{font-family:'JetBrains Mono';font-size:12px;color:var(--teal-dark)}
+.mbody{padding:20px 24px;display:grid;gap:14px}
+.mrow{display:grid;grid-template-columns:1fr 1fr 110px;gap:12px}
+.mbody label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.mbody select,.mbody input,.mbody textarea{width:100%;border-radius:12px;border:1.5px solid var(--line);background:#FBFDFD;padding:10px 12px;font-size:14px;color:var(--ink);font-family:inherit;outline:none}
+.mbody textarea{min-height:84px;resize:vertical;line-height:1.7}
+.mbody select:focus,.mbody input:focus,.mbody textarea:focus{border-color:var(--teal)}
+.mfoot{display:flex;gap:10px;align-items:center;padding:16px 24px;border-top:1px solid var(--line);background:var(--mist);position:sticky;bottom:0}
+.mfoot .sp{flex:1}
+.m-btn{height:42px;padding:0 18px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:14px;font-family:inherit;color:var(--ink)}
+.m-btn.pri{background:var(--teal);border-color:var(--teal);color:#fff}
+.m-btn.dang{color:#B3261E;border-color:#F4C2BF;background:#fff}
+.m-btn.dang.sure{background:#B3261E;border-color:#B3261E;color:#fff}
+.m-btn:disabled{opacity:.55;cursor:not-allowed}
+@media (max-width:640px){.mrow{grid-template-columns:1fr}}
 .tbl .who-c b{display:block;font-weight:600}
 .tbl .who-c small{color:var(--muted);font-size:12px}
 .tbl .note{color:var(--muted);font-size:12.5px;max-width:200px}
@@ -511,7 +537,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1050px}
         </div>
         <div class="tbl-wrap"><table class="tbl"><thead><tr>
           <th data-i="thId">المرجع</th><th data-i="thDate">التاريخ</th><th data-i="thLeader">القائد</th><th data-i="thType">النوع</th>
-          <th data-i="thDesc">الوصف</th><th data-i="thSol">الحل المقترح</th><th data-i="thImp">الأثر المتوقع</th><th data-i="thStatus">الحالة</th><th data-i="thNotes">ملاحظات</th><th data-i="thPts">النقاط</th>
+          <th data-i="thDesc">الوصف</th><th data-i="thSol">الحل المقترح</th><th data-i="thImp">الأثر المتوقع</th><th data-i="thStatus">الحالة</th><th data-i="thNotes">ملاحظات</th><th data-i="thPts">النقاط</th><th data-i="thAct">إجراء</th>
         </tr></thead><tbody id="tBody"></tbody></table></div>
         <div class="foot-note"><span id="fCount"></span><span data-i="adHint">لتغيير الحالة أو إضافة ملاحظات ونقاط، عدّلها في الشيت وستظهر هنا بعد التحديث.</span></div>
       </div>
@@ -548,12 +574,27 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1050px}
 <div class="toast" id="toast"></div>
 <div class="confetti" id="confetti"></div>
 
+<div class="modal" id="mEdit" aria-hidden="true"><div class="mbox" role="dialog" aria-modal="true">
+  <div class="mhead"><div><h3 data-i="editTitle">تعديل المساهمة</h3><span class="mono" id="mId"></span></div><button class="ed-btn" type="button" id="mClose" aria-label="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="mbody">
+    <div class="mrow">
+      <div><label data-i="thType">النوع</label><select id="eType"><option value="problem" data-i="tProblem">مشكلة</option><option value="improvement" data-i="tImprove">اقتراح تحسين</option></select></div>
+      <div><label data-i="thStatus">الحالة</label><select id="eStatus"></select></div>
+      <div><label data-i="thPts">النقاط</label><input id="ePoints" type="number" min="0" step="1"></div>
+    </div>
+    <div><label data-i="thDesc">الوصف</label><textarea id="eDesc" maxlength="1500"></textarea></div>
+    <div><label data-i="thSol">الحل المقترح</label><textarea id="eSol" maxlength="3000"></textarea></div>
+    <div><label data-i="thImp">الأثر المتوقع</label><textarea id="eImp" maxlength="1500"></textarea></div>
+    <div><label data-i="thNotes">ملاحظات</label><textarea id="eNotes" maxlength="1500"></textarea></div>
+  </div>
+  <div class="mfoot"><button class="m-btn dang" type="button" id="mDel" data-i="del">حذف</button><span class="sp"></span><button class="m-btn" type="button" id="mCancel" data-i="cancel">إلغاء</button><button class="m-btn pri" type="button" id="mSave" data-i="save">حفظ</button></div>
+</div></div>
 <script>
 (() => {
 const DEMO = !/^https:\/\/script\.google\.com\//.test(API_URL);
 const $ = s => document.querySelector(s);
 const T = {
- ar:{tabNew:'مساهمة جديدة',tabApproved:'المساهمات المعتمدة',tabAdmin:'لوحة المشرف',apTitle:'المساهمات المعتمدة',apSub:'أفكار وحلول اعتمدتها إدارة القسم، متاحة لكل القادة.',apEmpty:'لا توجد مساهمات معتمدة حتى الآن.',adTitle:'لوحة المشرف',adSub:'كل المساهمات المسجّلة في الشيت، تحدّث مباشرة.',kTotal:'الإجمالي',kProb:'مشاكل',kImp:'اقتراحات تحسين',kNew:'جديد',kRev:'قيد الدراسة',kApp:'معتمد / منفّذ',fSearch:'ابحث في الوصف أو الحلول أو الأسماء…',allTeams:'كل الفرق',allTypes:'كل الأنواع',allStatus:'كل الحالات',refresh:'تحديث',openSheet:'فتح الشيت',byTeam:'حسب الفريق',thId:'المرجع',thDate:'التاريخ',thLeader:'القائد',thType:'النوع',thDesc:'الوصف',thSol:'الحل المقترح',thImp:'الأثر المتوقع',thStatus:'الحالة',thNotes:'ملاحظات',thPts:'النقاط',adHint:'لتغيير الحالة أو إضافة ملاحظات ونقاط، عدّلها في الشيت وستظهر هنا بعد التحديث.',shown:(a,b)=>`يعرض ${a} من ${b}`,noRows:'لا توجد نتائج',impLbl:'الأثر المتوقع',brandTag:'صندوق القادة',mine:'مساهماتي',logout:'خروج',kicker:'مساحة خاصة لقادة قسم CS',
+ ar:{tabNew:'مساهمة جديدة',tabApproved:'المساهمات المعتمدة',tabAdmin:'لوحة المشرف',apTitle:'المساهمات المعتمدة',apSub:'أفكار وحلول اعتمدتها إدارة القسم، متاحة لكل القادة.',apEmpty:'لا توجد مساهمات معتمدة حتى الآن.',adTitle:'لوحة المشرف',adSub:'كل المساهمات المسجّلة في الشيت، تحدّث مباشرة.',kTotal:'الإجمالي',kProb:'مشاكل',kImp:'اقتراحات تحسين',kNew:'جديد',kRev:'قيد الدراسة',kApp:'معتمد / منفّذ',fSearch:'ابحث في الوصف أو الحلول أو الأسماء…',allTeams:'كل الفرق',allTypes:'كل الأنواع',allStatus:'كل الحالات',refresh:'تحديث',openSheet:'فتح الشيت',byTeam:'حسب الفريق',thId:'المرجع',thDate:'التاريخ',thLeader:'القائد',thType:'النوع',thDesc:'الوصف',thSol:'الحل المقترح',thImp:'الأثر المتوقع',thStatus:'الحالة',thNotes:'ملاحظات',thPts:'النقاط',thAct:'إجراء',editTitle:'تعديل المساهمة',save:'حفظ',cancel:'إلغاء',del:'حذف',delSure:'تأكيد الحذف',saved:'تم الحفظ',deleted:'تم حذف المساهمة',edit:'تعديل',adHint:'تقدر تغيّر الحالة وتعدّل أي مساهمة أو تحذفها من هنا أو من الشيت، والتعديل ينعكس في الاثنين (اضغط تحديث لجلب تعديلات الشيت).',shown:(a,b)=>`يعرض ${a} من ${b}`,noRows:'لا توجد نتائج',impLbl:'الأثر المتوقع',brandTag:'صندوق القادة',mine:'مساهماتي',logout:'خروج',kicker:'مساحة خاصة لقادة قسم CS',
   heroTitle:'صوتك يصنع<br><em>الخطوة القادمة</em>',
   heroText:'شارك التحديات التي تواجه فريقك وأفكار التحسين التي تؤمن بها. كل مساهمة تُراجَع وتُناقَش في الاجتماع الأسبوعي للقادة.',
   p1:'دخول بالبريد',p2:'أقل من دقيقتين',p3:'أثر قابل للقياس',signIn:'تسجيل الدخول',
@@ -570,9 +611,9 @@ const T = {
   empty:'لا توجد مساهمات بعد — ابدأ بأول فكرة.',loading:'جارٍ التحميل…',
   errors:{invalid_email:'البريد غير صحيح',not_allowed:'هذا البريد غير مسجّل في قائمة القادة',too_soon:'انتظر قليلًا قبل طلب رمز جديد',
    invalid_code:'الرمز غير صحيح',code_expired:'انتهت صلاحية الرمز، اطلب رمزًا جديدًا',session_expired:'انتهت الجلسة، سجّل الدخول من جديد',forbidden:'هذه الصفحة للمشرفين فقط',
-   type_required:'اختر النوع',description_required:'اكتب الوصف',solution_required:'اكتب الحل المقترح',network:'تعذّر الاتصال، حاول مرة أخرى',server_error:'حدث خطأ، حاول مرة أخرى'},
+   type_required:'اختر النوع',description_required:'اكتب الوصف',solution_required:'اكتب الحل المقترح',not_found:'المساهمة غير موجودة، حدّث الصفحة',network:'تعذّر الاتصال، حاول مرة أخرى',server_error:'حدث خطأ، حاول مرة أخرى'},
   demo:'وضع المعاينة'},
- en:{tabNew:'New submission',tabApproved:'Approved',tabAdmin:'Admin dashboard',apTitle:'Approved submissions',apSub:'Ideas and solutions approved by department leadership, visible to all leaders.',apEmpty:'No approved submissions yet.',adTitle:'Admin dashboard',adSub:'Every submission in the sheet, live.',kTotal:'Total',kProb:'Problems',kImp:'Improvements',kNew:'New',kRev:'Under review',kApp:'Approved / done',fSearch:'Search descriptions, solutions or names…',allTeams:'All teams',allTypes:'All types',allStatus:'All statuses',refresh:'Refresh',openSheet:'Open sheet',byTeam:'By team',thId:'Ref',thDate:'Date',thLeader:'Leader',thType:'Type',thDesc:'Description',thSol:'Proposed solution',thImp:'Expected impact',thStatus:'Status',thNotes:'Notes',thPts:'Points',adHint:'To change status or add notes and points, edit the sheet; changes show here after refresh.',shown:(a,b)=>`Showing ${a} of ${b}`,noRows:'No results',impLbl:'Expected impact',brandTag:'Rewaa',mine:'My submissions',logout:'Sign out',kicker:'A private space for CS department leaders',
+ en:{tabNew:'New submission',tabApproved:'Approved',tabAdmin:'Admin dashboard',apTitle:'Approved submissions',apSub:'Ideas and solutions approved by department leadership, visible to all leaders.',apEmpty:'No approved submissions yet.',adTitle:'Admin dashboard',adSub:'Every submission in the sheet, live.',kTotal:'Total',kProb:'Problems',kImp:'Improvements',kNew:'New',kRev:'Under review',kApp:'Approved / done',fSearch:'Search descriptions, solutions or names…',allTeams:'All teams',allTypes:'All types',allStatus:'All statuses',refresh:'Refresh',openSheet:'Open sheet',byTeam:'By team',thId:'Ref',thDate:'Date',thLeader:'Leader',thType:'Type',thDesc:'Description',thSol:'Proposed solution',thImp:'Expected impact',thStatus:'Status',thNotes:'Notes',thPts:'Points',thAct:'Action',editTitle:'Edit submission',save:'Save',cancel:'Cancel',del:'Delete',delSure:'Confirm delete',saved:'Saved',deleted:'Submission deleted',edit:'Edit',adHint:'Change status, edit or delete any submission here or in the sheet; changes show in both (press Refresh to pull sheet edits).',shown:(a,b)=>`Showing ${a} of ${b}`,noRows:'No results',impLbl:'Expected impact',brandTag:'Rewaa',mine:'My submissions',logout:'Sign out',kicker:'A private space for CS department leaders',
   heroTitle:'Your voice shapes<br><em>what comes next</em>',
   heroText:'Share the challenges your team faces and the improvements you believe in. Every submission is reviewed and discussed in the weekly leaders meeting.',
   p1:'Email sign-in',p2:'Under two minutes',p3:'Measurable impact',signIn:'Sign in',
@@ -589,7 +630,7 @@ const T = {
   empty:'No submissions yet — start with your first idea.',loading:'Loading…',
   errors:{invalid_email:'Please enter a valid email',not_allowed:'This email is not on the leaders list',too_soon:'Please wait a moment before requesting a new code',
    invalid_code:'Incorrect code',code_expired:'Code expired — request a new one',session_expired:'Session expired — please sign in again',forbidden:'Admins only',
-   type_required:'Choose a type',description_required:'Write a description',solution_required:'Describe the proposed solution',network:'Connection failed, please try again',server_error:'Something went wrong, please try again'},
+   type_required:'Choose a type',description_required:'Write a description',solution_required:'Describe the proposed solution',not_found:'Submission not found, please refresh',network:'Connection failed, please try again',server_error:'Something went wrong, please try again'},
   demo:'Preview mode'}
 };
 const DAYS = {ar:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']};
@@ -638,6 +679,7 @@ async function demoApi(a,d){
     const o={ok:true,id,date:n.toISOString().slice(0,10),day_en:DAYS.en[n.getDay()],day_ar:DAYS.ar[n.getDay()],time:n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})};
     demoStore.unshift({id,date:o.date,time:o.time,type:d.type==='problem'?'Problem | مشكلة':'Improvement Idea | اقتراح تحسين',description:d.description,solution:d.solution,status:'New | جديد'});return o}
   if(a==='mine') return {ok:true,items:demoStore};
+  if(a==='update'||a==='remove') return {ok:true};
   return {ok:true};
 }
 const errText = e => (T[lang].errors[e]||T[lang].errors.server_error);
@@ -702,7 +744,7 @@ function confetti(){const c=$('#confetti'),cols=['#00A4A6','#2BC4C3','#D9B26A','
 function openDrawer(){$('#drawer').classList.add('open');$('#scrim').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');loadMine()}
 function closeDrawer(){$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true')}
 $('#btnMine').onclick=openDrawer;$('#bClose').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();if(typeof closeEdit==='function'&&editId)closeEdit()}});
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const half=(s,i)=>{const p=String(s||'').split('|');return (p[i]||p[0]).trim()};
 async function loadMine(){const L=$('#list');L.innerHTML=`<div class="empty">${t('loading')}</div>`;
@@ -735,9 +777,9 @@ function renderApproved(){const idx=lang==='ar'?1:0,G=$('#apGrid');
     ${it.impact?`<div><div class="lbl">${t('impLbl')}</div><div class="imp-t">${esc(it.impact)}</div></div>`:''}
     <div class="by"><span class="av-s">${esc(ini(it.name))}</span><div><b>${esc(it.name)}</b> · ${esc(it.team)}</div><span style="margin-inline-start:auto" class="mono">${esc(it.date)}</span></div>
   </article>`).join('')}
-async function loadAll(){$('#tBody').innerHTML=`<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--muted)">${t('loading')}</td></tr>`;
+async function loadAll(){$('#tBody').innerHTML=`<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">${t('loading')}</td></tr>`;
   const r=await api('all',{token:S&&S.token});
-  if(!r.ok){$('#tBody').innerHTML=`<tr><td colspan="10" style="text-align:center;padding:40px">${errText(r.error)}</td></tr>`;return}
+  if(!r.ok){$('#tBody').innerHTML=`<tr><td colspan="11" style="text-align:center;padding:40px">${errText(r.error)}</td></tr>`;return}
   ALL=r.items;buildFilters();renderAdmin()}
 function opts(sel,first,vals){const cur=sel.value;sel.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option value="${esc(v.v)}">${esc(v.l)}</option>`).join('');sel.value=vals.some(v=>v.v===cur)?cur:''}
 function buildFilters(){const idx=lang==='ar'?1:0,uniq=a=>[...new Set(a.filter(Boolean))];
@@ -757,9 +799,36 @@ function renderAdmin(){const idx=lang==='ar'?1:0,q=$('#fQ').value.trim().toLower
     <td class="who-c"><b>${esc(x.name)}</b><small>${esc(x.team)}</small></td>
     <td><span class="tp ${/Problem/.test(x.type)?'p':'i'}">${esc(half(x.type,idx))}</span></td>
     <td><div class="clip">${esc(x.description)||'<span style="color:#9AAAAB">—</span>'}</div></td><td><div class="clip">${esc(x.solution)}</div></td><td><div class="clip">${esc(x.impact)||'<span style="color:#9AAAAB">—</span>'}</div></td>
-    <td><span class="st ${stCls(x.status)}">${esc(half(x.status,idx))}</span></td><td class="note">${esc(x.notes)}</td><td class="mono">${esc(x.points)}</td></tr>`).join('')
-    :`<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--muted)">${t('noRows')}</td></tr>`;
-  document.querySelectorAll('.tbl .clip').forEach(el=>el.onclick=()=>el.classList.toggle('open'))}
+    <td><select class="st-sel ${stCls(x.status)}" data-id="${esc(x.id)}">${STATUSES.map(v=>`<option value="${esc(v)}"${v===x.status?' selected':''}>${esc(half(v,idx))}</option>`).join('')}${STATUSES.includes(x.status)?'':`<option selected value="${esc(x.status)}">${esc(half(x.status,idx))}</option>`}</select></td><td class="note">${esc(x.notes)}</td><td class="mono">${esc(x.points)}</td><td><button class="ed-btn" type="button" data-edit="${esc(x.id)}" title="${t('edit')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></td></tr>`).join('')
+    :`<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">${t('noRows')}</td></tr>`;
+  document.querySelectorAll('.tbl .clip').forEach(el=>el.onclick=()=>el.classList.toggle('open'));
+  document.querySelectorAll('.tbl .st-sel').forEach(el=>el.onchange=()=>quickStatus(el));
+  document.querySelectorAll('.tbl [data-edit]').forEach(el=>el.onclick=()=>openEdit(el.dataset.edit))}
+const STATUSES=['New | جديد','Under Review | قيد الدراسة','Approved | معتمد','Implemented | تم التنفيذ','Rejected | مرفوض'];
+function applyItem(id,f){const it=ALL.find(x=>x.id===id);if(!it)return;Object.assign(it,f);if(f.type)it.type=f.type==='problem'?'Problem | مشكلة':f.type==='improvement'?'Improvement Idea | اقتراح تحسين':f.type}
+async function quickStatus(el){const id=el.dataset.id,v=el.value;el.disabled=true;
+  const r=await api('update',{token:S.token,id,fields:{status:v}});el.disabled=false;
+  if(!r.ok){toast(errText(r.error));renderAdmin();return}
+  applyItem(id,{status:v});buildFilters();renderAdmin();refreshApprovedCount();toast(t('saved'))}
+let editId=null;
+function openEdit(id){const it=ALL.find(x=>x.id===id);if(!it)return;editId=id;const idx=lang==='ar'?1:0;
+  $('#mId').textContent=id;$('#eType').value=/Problem/.test(it.type)?'problem':'improvement';
+  const es=$('#eStatus');es.innerHTML=STATUSES.map(v=>`<option value="${esc(v)}">${esc(half(v,idx))}</option>`).join('')+(STATUSES.includes(it.status)?'':`<option value="${esc(it.status)}">${esc(half(it.status,idx))}</option>`);es.value=it.status;
+  $('#eDesc').value=it.description||'';$('#eSol').value=it.solution||'';$('#eImp').value=it.impact||'';$('#eNotes').value=it.notes||'';$('#ePoints').value=it.points||'';
+  const d=$('#mDel');d.classList.remove('sure');d.textContent=t('del');
+  $('#mEdit').classList.add('open');$('#mEdit').setAttribute('aria-hidden','false')}
+function closeEdit(){$('#mEdit').classList.remove('open');$('#mEdit').setAttribute('aria-hidden','true');editId=null}
+$('#mClose').onclick=closeEdit;$('#mCancel').onclick=closeEdit;$('#mEdit').onclick=e=>{if(e.target.id==='mEdit')closeEdit()};
+$('#mSave').onclick=async()=>{if(!editId)return;
+  const f={type:$('#eType').value,status:$('#eStatus').value,description:$('#eDesc').value.trim(),solution:$('#eSol').value.trim(),impact:$('#eImp').value.trim(),notes:$('#eNotes').value.trim(),points:$('#ePoints').value.trim()};
+  const b=$('#mSave');b.disabled=true;const r=await api('update',{token:S.token,id:editId,fields:f});b.disabled=false;
+  if(!r.ok){toast(errText(r.error));return}
+  applyItem(editId,f);closeEdit();buildFilters();renderAdmin();APPROVED=null;refreshApprovedCount();toast(t('saved'))};
+$('#mDel').onclick=async()=>{const d=$('#mDel');if(!editId)return;
+  if(!d.classList.contains('sure')){d.classList.add('sure');d.textContent=t('delSure');return}
+  d.disabled=true;const r=await api('remove',{token:S.token,id:editId});d.disabled=false;
+  if(!r.ok){toast(errText(r.error));return}
+  ALL=ALL.filter(x=>x.id!==editId);closeEdit();buildFilters();renderAdmin();refreshApprovedCount();toast(t('deleted'))};
 ['fQ','fTeam','fType','fStatus'].forEach(id=>{$('#'+id).addEventListener('input',renderAdmin);$('#'+id).addEventListener('change',renderAdmin)});
 $('#bRefresh').onclick=loadAll;
 
